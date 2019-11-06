@@ -11,6 +11,7 @@ _TOKEN = "<pushover-token>"
 _KEY = "<pushover-key>"
 
 # End of config
+
 date = datetime.now().strftime("%Y-%m-%d")  # Eg. 2019-10-23
 log_file = "{}/notifications.log".format(Path(os.path.realpath(__file__)).parent)
 
@@ -33,7 +34,7 @@ try:
     last_run = None
     last_run_apartments_found = None
 
-    # Create log
+    # Create logfile non existing
     if os.path.exists(log_file) == False:
         log("date;apartments_found")
         log("{};{}".format(date, apartments_found))
@@ -44,17 +45,18 @@ try:
         last_run = lines[-1][:10]
         last_run_apartments_found = int(lines[-1][11:])
 
-    # Exit if push has been sent today
+    # New day? New log entry.
     if date != last_run:
         log("{};{}".format(date, apartments_found))
 
+    # Exit if nothing to push
     if date == last_run and apartments_found <= last_run_apartments_found:
         print("Nothing to push.")
         os._exit(0)
 except:
     print("An error was thrown")
 
-# Logic - send push or not
+# Send push
 if apartments_found > 0:
     # Pushover
     init(_TOKEN)
