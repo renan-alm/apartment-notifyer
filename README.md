@@ -15,5 +15,4 @@ A python tool that sends a push notification via pushover if a new apartment bec
 
 ## Notifications
 Is sent once per day if number of apartments is `>0`.
-
-A new notification will be sent if if number of available goes from `1` to `2` to `...` for a given day.
+Another notification will be sent if number of available apartments goes from `1` to `2` to `...` on a given day.
