@@ -1,5 +1,5 @@
 # apartment-notifyer
-A python tool that sends you a push notification via pushover if a new apartment becomes available on Wåhlin Fastigheter.
+A python tool that sends a push notification via pushover if a new apartment becomes available on Wåhlin Fastigheter.
 
 ## How to use it
 ### Windows
