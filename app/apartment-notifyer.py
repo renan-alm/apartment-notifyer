@@ -52,7 +52,7 @@ try:
 
     # Exit if nothing to push
     if date == last_run and apartments_found <= last_run_apartments_found:
-        print("%s | Nothing to push." % timestamp)
+        print("%s | Nothing to push" % timestamp)
         os._exit(0)
 except:
     print("%s | An error was thrown" % timestamp)
