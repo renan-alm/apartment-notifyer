@@ -13,6 +13,7 @@ _KEY = "<pushover-key>"
 # End of config
 
 date = datetime.now().strftime("%Y-%m-%d")  # Eg. 2019-10-23
+timestamp = datetime.now().strftime('%Y-%m-%d %H:%M') # Eg. 2021-02-20 13:37
 log_file = "{}/notifications.log".format(Path(os.path.realpath(__file__)).parent)
 
 def log(message):
@@ -27,7 +28,7 @@ tree = html.fromstring(page.content)
 apartments_found = int(tree.xpath('//span[@class="total-article"]/text()')[1])  # Int
 type = tree.xpath('//span[@class="term-name"]/text()')[1]                       # Förråd, Lägenheter, Lokaler, P-platser
 
-print(u"{} {}".format(apartments_found, type))
+print(u"{} | {} {}".format(timestamp, apartments_found, type))
 
 # Logic - send push or not
 try:
@@ -51,10 +52,10 @@ try:
 
     # Exit if nothing to push
     if date == last_run and apartments_found <= last_run_apartments_found:
-        print("Nothing to push.")
+        print("%s | Nothing to push." % timestamp)
         os._exit(0)
 except:
-    print("An error was thrown")
+    print("%s | An error was thrown" % timestamp)
 
 # Send push
 if apartments_found > 0:
@@ -63,5 +64,5 @@ if apartments_found > 0:
     Client(_KEY).send_message(u"Intresseanmäl på https://wahlinfastigheter.se/lediga-objekt/lagenheter/"
                               .format(apartments_found), title="{} nya lägenheter".format(apartments_found))
 
-    print("Pushover message sent")
+    print("%s | Pushover message sent" % timestamp)
     log("{};{}".format(date, apartments_found))

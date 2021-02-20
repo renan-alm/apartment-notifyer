@@ -16,3 +16,45 @@ A python tool that sends a push notification via pushover if a new apartment bec
 ## Notifications
 Is sent once per day if number of apartments is `>0`.
 Another notification will be sent if number of available apartments goes from `1` to `2` to `...` on a given day.
+
+
+## Docker
+### Prerequisities
+In order to run within a container you'll need docker installed.
+
+* [Windows](https://docs.docker.com/windows/started)
+* [OS X](https://docs.docker.com/mac/started/)
+* [Linux](https://docs.docker.com/linux/started/)
+
+#### Build dockerimage
+```shell
+docker build -t apartment-notifyer:latest . 
+```
+
+#### Run container
+```shell
+docker run -d -e PUSHOVER_TOKEN=<token> -e PUSHOVER_KEY=<key>  apartment-notifyer:latest
+```
+
+#### Environment Variables
+* `PUSHOVER_TOKEN` - Mandatory
+* `PUSHOVER_KEY` - Mandatory
+* `UPDATE_INTERVAL` - Optional. Default = 60 seconds.
+
+#### Volumes
+* `/app/` - Entire project including logs
+
+#### Useful File Locations (inside container)
+* `/app/apartment-notifyer.py` - Main application
+* `/app/notifications.log` - Logs
+
+## Contributing
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on code of conduct, and the process for submitting pull requests.
+
+## Authors
+* **Henrik Engström** - *Initial work* - [cr3ation](https://github.com/cr3ation)
+See also the list of [contributors](https://github.com/cr3ation/apartment-notifyer/contributors) who 
+participated in this project.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
