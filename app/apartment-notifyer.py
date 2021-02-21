@@ -28,8 +28,6 @@ tree = html.fromstring(page.content)
 apartments_found = int(tree.xpath('//span[@class="total-article"]/text()')[1])  # Int
 type = tree.xpath('//span[@class="term-name"]/text()')[1]                       # Förråd, Lägenheter, Lokaler, P-platser
 
-print(u"{} | {} {}".format(timestamp, apartments_found, type))
-
 # Logic - send push or not
 try:
     last_run = None
@@ -52,10 +50,10 @@ try:
 
     # Exit if nothing to push
     if date == last_run and apartments_found <= last_run_apartments_found:
-        print("%s | Nothing to push" % timestamp)
+        print("{} | {} {} – Nothing to push".format(timestamp, apartments_found, type))
         os._exit(0)
 except:
-    print("%s | An error was thrown" % timestamp)
+    print("{} | An error was thrown".format(timestamp))
 
 # Send push
 if apartments_found > 0:
@@ -64,5 +62,5 @@ if apartments_found > 0:
     Client(_KEY).send_message(u"Intresseanmäl på https://wahlinfastigheter.se/lediga-objekt/lagenheter/"
                               .format(apartments_found), title="{} nya lägenheter".format(apartments_found))
 
-    print("%s | Pushover message sent" % timestamp)
+    print("{} | {} {} – Pushover message sent".format(timestamp, apartments_found, type))
     log("{};{}".format(date, apartments_found))
