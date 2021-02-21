@@ -21,7 +21,7 @@ echo "Pushover token: $PUSHOVER_TOKEN"
 echo "Update interval: $UPDATE_INTERVAL"
 echo ""
 
-# Edit stuff
+# Add token and key to script
 sed -i "s/<pushover-token>/$PUSHOVER_TOKEN/" $APP
 sed -i "s/<pushover-key>/$PUSHOVER_KEY/" $APP
 

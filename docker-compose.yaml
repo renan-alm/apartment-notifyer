@@ -1,0 +1,8 @@
+version: "3.5"
+services:
+  app:
+    build: .
+    environment:
+      PUSHOVER_TOKEN:
+      PUSHOVER_KEY:
+      UPDATE_INTERVAL: 60
