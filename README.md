@@ -1,7 +1,7 @@
 # apartment-notifyer
 A python tool that sends a push notification via pushover if a new apartment becomes available on Wåhlin Fastigheter.
 
-## How to use it
+## Installation
 ### Windows
 1) Create python3 _venv_  and run `pip install -r requirements.txt` to install required modules.
 2) Edit config in `apartment-notifyer.py`.
@@ -17,23 +17,24 @@ A python tool that sends a push notification via pushover if a new apartment bec
 Is sent once per day if number of apartments is `>0`.
 Another notification will be sent if number of available apartments goes from `1` to `2` to `...` on a given day.
 
-
 ## Docker
+Install using `docker-compose` or by building the image from scratch. Examples below.
+
 ### Prerequisities
 In order to run within a container you'll need docker installed.
 
 * [Windows](https://docs.docker.com/windows/started)
-* [OS X](https://docs.docker.com/mac/started/)
+* [macOS](https://docs.docker.com/mac/started/)
 * [Linux](https://docs.docker.com/linux/started/)
 
-#### Run using Docker Compose
+### Install using docker-compose
 Edit `docker-compose.yaml`. Add `PUSHOVER_TOKEN` and `PUSHOVER_KEY` and save. Then run
 ```shell
 docker-compose up 
 ```
 
-#### Build dockerimage
-If you don't want to use docker-compose you can build and run your own image.
+### Install using docker
+#### Build image
 ```shell
 docker build -t apartment-notifyer:latest . 
 ```
@@ -43,15 +44,15 @@ docker build -t apartment-notifyer:latest .
 docker run -d -e PUSHOVER_TOKEN=<token> -e PUSHOVER_KEY=<key>  apartment-notifyer:latest
 ```
 
-#### Environment Variables
+### Environment Variables
 * `PUSHOVER_TOKEN` - Mandatory
 * `PUSHOVER_KEY` - Mandatory
 * `UPDATE_INTERVAL` - Optional. Default = 60 seconds.
 
-#### Volumes
+### Volumes
 * `/app/` - Entire project including logs
 
-#### Useful File Locations (inside container)
+### Useful File Locations (inside container)
 * `/app/apartment-notifyer.py` - Main application
 * `/app/notifications.log` - Logs
 
