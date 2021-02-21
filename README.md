@@ -26,7 +26,14 @@ In order to run within a container you'll need docker installed.
 * [OS X](https://docs.docker.com/mac/started/)
 * [Linux](https://docs.docker.com/linux/started/)
 
+#### Run using Docker Compose
+Edit `docker-compose.yaml`. Add `PUSHOVER_TOKEN` and `PUSHOVER_KEY` and save. Then run
+```shell
+docker-compose up 
+```
+
 #### Build dockerimage
+If you don't want to use docker-compose you can build and run your own image.
 ```shell
 docker build -t apartment-notifyer:latest . 
 ```
