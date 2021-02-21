@@ -50,7 +50,7 @@ try:
 
     # Exit if nothing to push
     if date == last_run and apartments_found <= last_run_apartments_found:
-        print("{} | {} {} – Nothing to push".format(timestamp, apartments_found, type))
+        print("{} | {} {} | Nothing to push".format(timestamp, apartments_found, type))
         os._exit(0)
 except:
     print("{} | An error was thrown".format(timestamp))
@@ -62,5 +62,5 @@ if apartments_found > 0:
     Client(_KEY).send_message(u"Intresseanmäl på https://wahlinfastigheter.se/lediga-objekt/lagenheter/"
                               .format(apartments_found), title="{} nya lägenheter".format(apartments_found))
 
-    print("{} | {} {} – Pushover message sent".format(timestamp, apartments_found, type))
+    print("{} | {} {} | Pushover message sent".format(timestamp, apartments_found, type))
     log("{};{}".format(date, apartments_found))
