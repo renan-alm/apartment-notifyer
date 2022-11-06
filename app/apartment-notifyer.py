@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
+import json
 import requests
-from lxml import html
 from pathlib import Path
 from pushover import init, Client
 from datetime import datetime
@@ -9,7 +9,6 @@ from datetime import datetime
 # Config
 _TOKEN = "<pushover-token>"
 _KEY = "<pushover-key>"
-
 # End of config
 
 date = datetime.now().strftime("%Y-%m-%d")  # Eg. 2019-10-23
@@ -22,11 +21,12 @@ def log(message):
     f.close()
 
 # Scrape HTML
-page = requests.get('https://wahlinfastigheter.se/lediga-objekt/lagenheter/')
-tree = html.fromstring(page.content)
+url = "https://minasidor.wahlinfastigheter.se/rentalobject/Listapartment/published?sortOrder=NEWEST"
+resp = requests.get(url)
+data = resp.json()
 
-apartments_found = int(tree.xpath('//span[@class="total-article"]/text()')[1])  # Int
-type = tree.xpath('//span[@class="term-name"]/text()')[1]                       # Förråd, Lägenheter, Lokaler, P-platser
+apartments = json.loads(data["data"])
+apartments_found = len(apartments)
 
 # Logic - send push or not
 try:
