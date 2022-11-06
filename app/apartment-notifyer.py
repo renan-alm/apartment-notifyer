@@ -1,14 +1,15 @@
 # -*- coding: utf-8 -*-
 import os
+import http.client, urllib
 import json
 import requests
 from pathlib import Path
-from pushover import init, Client
 from datetime import datetime
 
 # Config
 _TOKEN = "<pushover-token>"
 _KEY = "<pushover-key>"
+
 # End of config
 
 date = datetime.now().strftime("%Y-%m-%d")  # Eg. 2019-10-23
@@ -50,7 +51,7 @@ try:
 
     # Exit if nothing to push
     if date == last_run and apartments_found <= last_run_apartments_found:
-        print("{} | {} {} | Nothing to push".format(timestamp, apartments_found, type))
+        print(f"{timestamp} | {apartments_found} lägenheter | Nothing to push")
         os._exit(0)
 except:
     print("{} | An error was thrown".format(timestamp))
@@ -58,9 +59,26 @@ except:
 # Send push
 if apartments_found > 0:
     # Pushover
-    init(_TOKEN)
-    Client(_KEY).send_message(u"Intresseanmäl på https://wahlinfastigheter.se/lediga-objekt/lagenheter/"
-                              .format(apartments_found), title="{} nya lägenheter".format(apartments_found))
+    ## Message
+    message = "Intresseanmäl på https://minasidor.wahlinfastigheter.se/ledigt/lagenhet"
+    for apartment in apartments:
+        message = message + f"""
 
-    print("{} | {} {} | Pushover message sent".format(timestamp, apartments_found, type))
+---------------------------------------------------
+💵    <b>{apartment["Cost"]} kr  *  {apartment["Size"]} m²</b>
+🏠    {apartment["Adress1"]}
+🗺️    {apartment["AreaName"]}
+"""
+    ## Send
+    conn = http.client.HTTPSConnection("api.pushover.net:443")
+    conn.request("POST", "/1/messages.json",
+        urllib.parse.urlencode({
+        "token": _TOKEN,
+        "user": _KEY,
+        "title": f"{apartments_found} nya lägenheter",
+        "message": message,
+        }), { "Content-type": "application/x-www-form-urlencoded" })
+    conn.getresponse()
+
+    print(f"{timestamp} | {apartments_found} lägenheter | Pushover message sent")
     log("{};{}".format(date, apartments_found))
