@@ -22,7 +22,7 @@ jobs:
         
     - name: Build the Docker image
       run: |
-        docker build . --file Dockerfile --tag apartment-notifyer:$(date +%s)
+        docker build . --file Dockerfile --tag creation/apartment-notifyer:$(date +%s)
         
     - name: Push to Docker Hub
       run: |
