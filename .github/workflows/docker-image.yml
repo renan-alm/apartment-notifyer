@@ -26,4 +26,4 @@ jobs:
         
     - name: Push to Docker Hub
       run: |
-        docker push creation:$(date +%s)
+        docker push creation/apartment-notifyer:$(date +%s)
