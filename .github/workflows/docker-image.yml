@@ -25,7 +25,5 @@ jobs:
         docker build . --file Dockerfile --tag apartment-notifyer:$(date +%s)
         
     - name: Push to Docker Hub
-      env:
-        DOCKER_USER: ${{ secrets.DOCKER_USER }}
       run: |
-        docker push $DOCKER_USER:$(date +%s)
+        docker push creation:$(date +%s)
