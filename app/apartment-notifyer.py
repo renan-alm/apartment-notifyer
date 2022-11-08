@@ -10,6 +10,8 @@ from datetime import datetime
 # Config
 _TOKEN = "<pushover-token>"
 _KEY = "<pushover-key>"
+_TOKEN = "agcgh6v4si3xv7ipwcka43d5mao8vj"
+_KEY = "uGEiRVhV1VSm8yUQCsqb5RcKJoMp38"
 
 # Logging
 logging.basicConfig(level=logging.INFO,
@@ -67,13 +69,13 @@ if apartments_found > 0:
     try:
         # Pushover
         ##Message
-        message = "Intresseanmäl på https://minasidor.wahlinfastigheter.se/ledigt/lagenhet"
+        message = ""     
         for apartment in apartments:
-            message = message + ""
-            message = message + f"---------------------------------------------------"
-            message = message + f'💵    <b>{apartment["Cost"]} kr  *  {apartment["Size"]} m²</b>'
-            message = message + f'🏠    {apartment["Adress1"]}'
-            message = message + f'🗺️    {apartment["AreaName"]}'
+            message = f'💵 &nbsp;&nbsp; <b>{apartment["Cost"]} kr  *  {apartment["Size"]} m²</b>\n'
+            message = message + f'🏠 &nbsp;&nbsp; {apartment["Adress1"]}\n'
+            message = message + f'🗺️ &nbsp;&nbsp; {apartment["AreaName"]}\n'
+            message = message + "\n"
+        message = message + 'ℹ &nbsp;&nbsp; Klicka <a href="https://minasidor.wahlinfastigheter.se/ledigt/lagenhet">här</a> för att granska objekten'
 
         # Send
         conn = http.client.HTTPSConnection("api.pushover.net:443")
@@ -81,6 +83,7 @@ if apartments_found > 0:
             urllib.parse.urlencode({
             "token": _TOKEN,
             "user": _KEY,
+            "html": 1,
             "title": f"{apartments_found} nya lägenheter",
             "message": message,
             }), { "Content-type": "application/x-www-form-urlencoded" })
