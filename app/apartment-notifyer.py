@@ -71,10 +71,10 @@ if apartments_found > 0:
         ##Message
         message = ""     
         for apartment in apartments:
-            message = f'💵 &nbsp;&nbsp; <b>{apartment["Cost"]} kr  *  {apartment["Size"]} m²</b>\n'
+            message = message + f'💵 &nbsp;&nbsp; <b>{apartment["Cost"]} kr  *  {apartment["Size"]} m²</b>\n'
             message = message + f'🏠 &nbsp;&nbsp; {apartment["Adress1"]}\n'
             message = message + f'🗺️ &nbsp;&nbsp; {apartment["AreaName"]}\n'
-            message = message + "\n"
+            message = message + "\n\n"
         message = message + 'ℹ &nbsp;&nbsp; Klicka <a href="https://minasidor.wahlinfastigheter.se/ledigt/lagenhet">här</a> för att granska objekten'
 
         # Send
