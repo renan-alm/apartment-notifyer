@@ -71,7 +71,7 @@ if apartments_found > 0:
         ##Message
         message = ""     
         for apartment in apartments:
-            message = message + f'💵 &nbsp;&nbsp; <b>{apartment["Cost"]} kr  *  {apartment["Size"]} m²</b>\n'
+            message = message + f'💵 &nbsp;&nbsp; <b>{apartment["Cost"]} kr  |  {apartment["Size"]} m²</b>\n'
             message = message + f'🏠 &nbsp;&nbsp; {apartment["Adress1"]}\n'
             message = message + f'🗺️ &nbsp;&nbsp; {apartment["AreaName"]}\n'
             message = message + "\n\n"
